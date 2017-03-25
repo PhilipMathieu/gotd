@@ -3,7 +3,6 @@ var router = express.Router()
 
 function getGames() {
     const Mlbgames = require('mlbgames');
-    const mlbgames = new Mlbgames(options);
 
         var today = new Date();
         var dd = today.getDate();
@@ -24,19 +23,21 @@ function getGames() {
         const options = {
             path: today
         };
+    
+        const mlbgames = new Mlbgames(options);
 
-    mlbgames.get((err, games) => {
-        for (var i = 0; i < games.length; i++) {
+        mlbgames.get((err, games) => {
+            for (var i = 0; i < games.length; i++) {
 
-            if (i == 0) {
-                str = '{"Games": [{"home_name_abbrev":"'+games[i].home_name_abbrev+'","away_name_abbrev":"'+games[i].away_name_abbrev+'","time":"'+games[i].time + '"}]}';
-                var obj = JSON.parse(str);JSON
-            }else{
-                obj.Games.push('{"home_name_abbrev":"'+games[i].home_name_abbrev+'","away_name_abbrev":"'+games[i].away_name_abbrev+'","time":"'+games[i].time + '"}');
+                if (i == 0) {
+                    str = '{"Games": [{"home_name_abbrev":"'+games[i].home_name_abbrev+'","away_name_abbrev":"'+games[i].away_name_abbrev+'","time":"'+games[i].time + '"}]}';
+                    var obj = JSON.parse(str);JSON
+                }else{
+                    obj.Games.push('{"home_name_abbrev":"'+games[i].home_name_abbrev+'","away_name_abbrev":"'+games[i].away_name_abbrev+'","time":"'+games[i].time + '"}');
+                }
             }
-        }
 
-    });
+        });
     return obj;
 }
 
