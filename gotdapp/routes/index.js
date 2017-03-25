@@ -4,41 +4,36 @@ var router = express.Router()
 function getGames() {
     const Mlbgames = require('mlbgames');
 
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; //January is 0!
-        var yyyy = today.getFullYear();
-        var str = ""
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    var str = ""
 
-        if(dd<10) {
-            dd='0'+dd
+    if(dd<10) {
+        dd='0'+dd
+    }
+
+    if(mm<10) {
+        mm='0'+mm
+    }
+
+    today = 'year_' + yyyy + '/month_' + mm + '/day_' + dd + '/';
+    const options = {
+        path: today
+    };
+
+    const mlbgames = new Mlbgames(options);
+
+    var obj = [];
+    mlbgames.get((err, games) => {
+        for (var i = 0; i < games.length; i++) {
+            var curr = {"home_team_abbrev": games[i].home_name_abbrev, "away_team_abbrev": games[i].away_name_abbrev, "time": games[i].time};
+            obj.push(curr);
         }
-
-        if(mm<10) {
-            mm='0'+mm
-        }
-
-        today = 'year_' + yyyy + '/month_' + mm + '/day_' + dd + '/';
-        console.log(today);
-        const options = {
-            path: today
-        };
-    
-        const mlbgames = new Mlbgames(options);
-
-        mlbgames.get((err, games) => {
-            for (var i = 0; i < games.length; i++) {
-
-                if (i == 0) {
-                    str = '{"Games": [{"home_name_abbrev":"'+games[i].home_name_abbrev+'","away_name_abbrev":"'+games[i].away_name_abbrev+'","time":"'+games[i].time + '"}]}';
-                    var obj = JSON.parse(str);JSON
-                }else{
-                    obj.Games.push('{"home_name_abbrev":"'+games[i].home_name_abbrev+'","away_name_abbrev":"'+games[i].away_name_abbrev+'","time":"'+games[i].time + '"}');
-                }
-            }
-
-        });
-    return obj;
+    });
+    console.log(obj);
+    return [{"home_team_abbrev":"CWS","away_team_abbrev":"BOS","time":"7:05 PM"}, {"home_team_abbrev":"PEM","away_team_abbrev":"NEM","time":"7:05 PM"}];
 }
 
 function parsePlayers(roster) {
@@ -59,6 +54,7 @@ function parsePlayers(roster) {
 function scoreGames(players) {
     var games = getGames();
     var scored = [];
+    console.log(games);
     for (var i=0; i<games.length; i++) {
         var curr = {"game":games[i],"score":0};
         for (var j=0; j<players.length; j++) {

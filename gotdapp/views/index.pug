@@ -1,9 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}! This app will find the baseball game today that features the most players on your fantasy roster.  To proceed, paste the table of players from your fantasy team below.
-  form(action="/games", method="post")
-    input(type="text", name="roster", size=50)
+  div#box
+    h1= title
+    p Welcome to #{title}! This app will find the baseball game today that features the most players on your fantasy roster.  To proceed, paste the table of players from your fantasy team into the box below.
+    form(action="/games", method="post")
+      input(type="text", name="roster", size=50)
+      br
+      input(type="submit")
     br
-    input(type="submit", description="Find my game!")
