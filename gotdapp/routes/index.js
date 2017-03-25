@@ -40,7 +40,7 @@ function scoreGames(players) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Game of the Day' });
+  res.render('index', { title: 'Fantasy Game Recommender' });
 });
 
 router.get('/games', function(req, res, next) {

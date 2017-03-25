@@ -2,14 +2,8 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}! Paste your fantssy roster below:
+  p Welcome to #{title}! This app will find the baseball game today that features the most players on your fantasy roster.  To proceed, paste the table of players from your fantasy team below.
   form(action="/games", method="post")
-    label Enter your team name:
-    br
-    input(type="text", name="name", size=50)
-    br
-    label Paste roster here:
-    br
     input(type="text", name="roster", size=50)
     br
-    input(type="submit")
+    input(type="submit", description="Find my game!")
