@@ -14,4 +14,4 @@ What game should you watch when the Red Sox aren't on?  This app will look at yo
 * Maintain user accounts
 * Send daily/weekly email
 
-### App by Philip Mathieu, Jonathan Englund, Nathanael Mathieu, and Amelia White
+### App by Philip Mathieu, Jonathan Englund, Nathanael Mathieu, and Amelia White.  All rights reserved, but we're friendly.  Shoot us an email if you want to use our code!
